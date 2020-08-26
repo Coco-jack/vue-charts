@@ -44,8 +44,7 @@ export default {
 
 <style scope>
 .garden-data-scroll {
-    height: 2.4rem;
-    margin: 0 auto;
+    height: 40vh;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
@@ -55,6 +54,7 @@ export default {
 .garden-data-detail {
     display: flex;
     flex-wrap: wrap;
+    height: 40vh;
     justify-content: space-around;
     margin: .1rem 0;
 }

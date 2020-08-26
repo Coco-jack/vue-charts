@@ -86,7 +86,7 @@
 
 <style scope>
 .container {
-    height: 3rem;
+    height: 46vh;
     overflow: hidden;
     margin-top: -.25rem
 }
@@ -116,9 +116,9 @@
 .video-detail {
     display: flex;
     overflow: hidden;
-    height: 1rem;
 }
 .video-scroll {
+    margin-top: .2rem;
     margin-left: .1rem;
 }
 .scroll-monitor {
@@ -136,6 +136,7 @@
 }
 .realTime-title {
     text-align: left;
+    margin-top: .2rem;
     margin-left: .3rem;
     font-size: .14rem;
 }
