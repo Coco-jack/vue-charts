@@ -1,10 +1,10 @@
 <template>
     <div class="map-data">
         <el-carousel height="150px" indicator-position="none" arrow="never">
-            <el-carousel-item v-for="item in 4" :key="item">
-                <div class="map-data-detail" v-for="item in realTimeList.slice(-8)">
-                    <span>{{ item.data }}{{ item.danwei }}</span>
-                    <span>{{ item.name }}</span>
+            <el-carousel-item v-for="(item, index) in realTimeData" :key="index">
+                <div class="map-data-detail" v-for="title in item">
+                    <span>{{ title.data }}{{ title.danwei }}</span>
+                    <span>{{ title.name }}</span>
                 </div>
             </el-carousel-item>
         </el-carousel>
@@ -17,6 +17,7 @@ export default {
     data() {
         return {
             realTimeList: [],
+            realTimeData: [],
             animateUp: false
         }
     },
@@ -28,6 +29,11 @@ export default {
             this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then(res => {
                 if (res && res.data.code === 200) {
                     this.realTimeList = res.data.data
+                    for (let i = 0; i < this.realTimeList.length; i++) {
+                        this.realTimeData.push(this.realTimeList.slice(i, i + 5))
+                        i = i + 4
+                    }
+                    console.log(this.realTimeData)
                 }
             })
         }
@@ -42,8 +48,8 @@ export default {
 }
 
 .map-data-detail {
-    height: .9rem;
-    width: .8rem;
+    height: 1.5rem;
+    width: 1.5rem;
     background-image: url('../assets/images/detail.png');
     background-repeat: no-repeat;
     background-size: 100% 100%;
