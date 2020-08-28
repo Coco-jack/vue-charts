@@ -5,85 +5,93 @@
             <img class="right-route" src="../assets/images/right.png"/>
             <img class="right-route" src="../assets/images/right.png"/>
             <span>监控温度曲线列表</span>
-            <Button type="text">查看全部</Button>
+            <span @click="showCoverList">查看全部</span>
         </div>
         <div id="data-list" style="width: 100%; height: 300px; margin-top: 30px"></div>
     </div>
 </template>
 
 <script>
-    import {Button} from 'element-ui'
 	export default {
 		name: "TemperatureRotateList",
-        components: {
-	        Button
-        },
         mounted() {
 			this.drawCharts()
         },
         methods: {
 			drawCharts() {
-				let envTemperature = this.$echarts.init(document.getElementById('data-list'))
-				let envTemperatureOption = {
-					title: {
-						text: '环境温度日统计柱状图 1',
-						x: 'center',
-						textStyle: {
-							color: '#fff',
-							fontSize: 14,
-							fontWeight: 0,
-						}
-					},
-					tooltip: {
-						trigger: 'axis'
-					},
-					xAxis: {
-						type: 'category',
-						name: '日',
-						nameTextStyle: {
-							color: '#fff'
-						},
-						axisLine: {
-							lineStyle: {
-								color: '#fff'
-							}
-						},
-						data: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16']
-					},
-					yAxis: {
-						type: 'value',
-						name: '环境温度/°C',
-						nameTextStyle: {
-							color: '#fff'
-						},
-						axisLine: {
-							lineStyle: {
-								color: '#fff'
-							}
-						}
-					},
-					series: [
-						{
-							data: [120, 200, 150, 80, 70, 110, 130, 70, 100, 150, 160, 180, 170, 160, 89, 100],
-							type: 'bar',
-							name: '最高环境温度',
-							label: {
-								formatter: '{a}: {@value}°C'
-							}
-						},
-						{
-							data: [120, 200, 150, 80, 70, 110, 130, 70, 100, 150, 160, 180, 170, 160, 89, 100],
-							type: 'bar',
-							name: '最低环境温度'
-						},
-						{
-							data: [120, 200, 150, 80, 70, 110, 130, 70, 100, 150, 160, 180, 170, 160, 89, 100],
-							type: 'bar',
-							name: '平均环境温度'
-						}
-					]
-				}
-				envTemperature.setOption(envTemperatureOption)
+                this.$http.get('https://www.billdazy.com/190901/infov4?project=P200320121679722&f_id=0').then(res => {
+                    if (res && res.data.code === 200) {
+                        let data = res.data.data[0]
+                        let envTemperature = this.$echarts.init(document.getElementById('data-list'))
+                        let envTemperatureOption = {
+                            title: {
+                                text: data.name,
+                                x: 'center',
+                                textStyle: {
+                                    color: '#fff',
+                                    fontSize: 14,
+                                    fontWeight: 0,
+                                }
+                            },
+                            tooltip: {
+                                trigger: 'axis',
+                                formatter: function (params) {
+                                    let result = '';
+                                    for (let i=0; i<params.length; i++) {
+                                        result += `${result.includes(params[i].name) ? '' : params[i].name}<br/>${params[i].seriesName}:${params[i].value.toFixed(2)}(°C)`
+                                    }
+                                    return result
+                                }
+                            },
+                            xAxis: {
+                                type: 'category',
+                                name: '日',
+                                nameTextStyle: {
+                                    color: '#fff'
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#fff'
+                                    }
+                                },
+                                data: data.data[0].time
+                            },
+                            yAxis: {
+                                type: 'value',
+                                name: '环境温度/°C',
+                                nameTextStyle: {
+                                    color: '#fff'
+                                },
+                                axisLine: {
+                                    lineStyle: {
+                                        color: '#fff'
+                                    }
+                                }
+                            },
+                            series: [
+                                {
+                                    data: data.data[0].data,
+                                    type: 'bar',
+                                    name: data.data[0].name
+                                },
+                                {
+                                    data: data.data[1].data,
+                                    type: 'bar',
+                                    name: data.data[1].name
+                                },
+                                {
+                                    data: data.data[2].data,
+                                    type: 'bar',
+                                    name: data.data[2].name
+                                }
+                            ]
+                        }
+                        envTemperature.setOption(envTemperatureOption)
+                    }
+                })
+            },
+            showCoverList() {
+			    this.$emit('showCover', true)
             }
         }
 	}
@@ -104,5 +112,16 @@
     .garden-data-title > span {
         font-size: .14rem;
         color: #ffffff;
+    }
+
+    .garden-data-title > span:nth-child(5) {
+        margin-left: 1rem;
+        cursor: pointer;
+        width: 1.5rem;
+        height: .3rem;
+        text-align: center;
+        line-height: .3rem;
+        background: rgb(34, 158, 255);
+        border-radius: 0.1rem;
     }
 </style>

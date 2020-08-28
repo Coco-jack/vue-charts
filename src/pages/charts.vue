@@ -19,8 +19,13 @@
             </div>
             <div class="content-right">
                 <TemperatureRotate/>
-                <TemperatureRotateList/>
+                <TemperatureRotateList
+                    @showCover="isShowCoverList"
+                />
             </div>
+        </div>
+        <div v-show="isShowCover" class="cover">
+            <ChartsList @closeCover="isShowCoverList"/>
         </div>
     </div>
 </template>
@@ -31,6 +36,7 @@
     import MapCharts from "../components/MapCharts"
     import TemperatureRotate from "../components/TemperatureRotate"
     import TemperatureRotateList from "../components/TemperatureRotateList"
+    import ChartsList from "../components/ChartsList"
 
 	export default {
 		name: 'charts',
@@ -39,11 +45,19 @@
 			MonitorBox,
 			MapCharts,
 			TemperatureRotate,
-			TemperatureRotateList
+			TemperatureRotateList,
+            ChartsList
 		},
 		data() {
-			return {}
-		}
+			return {
+			    isShowCover: false
+            }
+		},
+        methods: {
+            isShowCoverList(data) {
+                this.isShowCover = data
+            }
+        }
 	}
 </script>
 
@@ -107,5 +121,17 @@
         flex-direction: column;
         background: rgba(0,0,0,.3);
         overflow: hidden;
+    }
+
+    .cover {
+        right: 0;
+        height: 100vh;
+        width: 68vw;
+        background: rgba(0,0,0,1);
+        z-index: 100;
+        position: absolute;
+        top: 0;
+        overflow: hidden;
+        overflow-y: auto;
     }
 </style>

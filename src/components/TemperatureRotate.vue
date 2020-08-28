@@ -15,85 +15,105 @@
 		name: "TemperatureRotate",
         data() {
 		    return {
-
+                dataList: []
             }
         },
         mounted() {
-            this.getTemperatureRotate()
+		    this.getTemperatureRotateData()
         },
         methods: {
-            getTemperatureRotate() {
-	            let color = ['#5793f3', '#d14a61', '#675bba']
-	            let myChart = this.$echarts.init(document.getElementById('temperature-rotate'))
-	            let option = {
-		            color: color,
-		            tooltip: {
-			            trigger: 'axis'
-		            },
-		            legend: {
-			            data: ['最高土壤温度', '最低土壤温度', '平均温度'],
-			            textStyle: {
-				            color: '#fff'
-			            }
-		            },
-		            grid: {
-			            top: 70,
-			            bottom: 70,
-			            containLabel: true
-		            },
-		            xAxis: [
-			            {
-				            type: 'category',
-				            axisTick: {
-					            alignWithLabel: true
-				            },
-				            axisLine: {
-					            onZero: false,
-					            lineStyle: {
-						            color: '#fff'
-					            }
-				            },
-				            data: ['2020-07-01', '2020-07-02', '2020-07-03', '2020-07-04', '2020-07-05', '2020-07-06', '2020-07-07', '2020-07-08', '2020-07-09']
-			            },
-			            {
-				            type: 'category',
-				            axisTick: {
-					            alignWithLabel: true
-				            },
-			            }
-		            ],
-		            yAxis: [
-			            {
-				            type: 'value',
-				            axisLine: {
-					            lineStyle: {
-						            color: '#fff'
-					            }
-				            },
-			            }
-		            ],
-		            series: [
-			            {
-				            name: '最高土壤温度',
-				            type: 'line',
-				            smooth: true,
-				            data: [20, 25, 31, 20, 20, 30, 28, 38, 31, 35, 30, 35]
-			            },
-			            {
-				            name: '最低土壤温度',
-				            type: 'line',
-				            smooth: true,
-				            data: [18, 15, 17, 12, 13, 14, 19, 30, 28, 30, 24, 26]
-			            },
-			            {
-				            name: '平均温度',
-				            type: 'line',
-				            smooth: true,
-				            data: [19, 20, 25, 16, 15, 15, 25, 34, 29, 33, 26, 30]
-			            }
-		            ]
-	            };
-	            myChart.setOption(option)
+		    getTemperatureRotateData() {
+                this.$http.get('https://www.billdazy.com/190901/info?project=P200320121679722&value=2&u_id=admin').then(res => {
+                    if (res && res.data.code === 200) {
+                        this.dataList = res.data.data
+                        let color = ['#5793f3', '#d14a61', '#675bba']
+                        let myChart = this.$echarts.init(document.getElementById('temperature-rotate'))
+                        let option = {
+                            title: {
+                                text: this.dataList.name1,
+                                x: 'center',
+                                y: 'top',
+                                textStyle: {
+                                    color: '#fff',
+                                    fontSize: 14,
+                                    fontWeight: 0,
+                                }
+                            },
+                            legend: {
+                                top: 30,
+                                data: [this.dataList.data[0].name, this.dataList.data[1].name, this.dataList.data[2].name],
+                                textStyle: {
+                                    color: '#fff'
+                                }
+                            },
+                            color: color,
+                            tooltip: {
+                                trigger: 'axis',
+                                // formatter: `{b}<br/>{a0}:{c0}(°C)<br/>{a1}:{c1}}(°C)<br/>{a2}:{c2}(°C)`
+                                formatter: function (params) {
+                                    let result = '';
+                                    for (let i=0; i<params.length; i++) {
+                                        result += `${result.includes(params[i].name) ? '' : params[i].name}<br/>${params[i].seriesName}:${params[i].value.toFixed(2)}(°C)`
+                                    }
+                                    return result
+                                }
+                            },
+                            grid: {},
+                            xAxis: [
+                                {
+                                    type: 'category',
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    },
+                                    axisLine: {
+                                        onZero: false,
+                                        lineStyle: {
+                                            color: '#fff'
+                                        }
+                                    },
+                                    data: this.dataList.data[0].time
+                                },
+                                {
+                                    type: 'category',
+                                    axisTick: {
+                                        alignWithLabel: true
+                                    },
+                                }
+                            ],
+                            yAxis: [
+                                {
+                                    type: 'value',
+                                    axisLine: {
+                                        lineStyle: {
+                                            color: '#fff'
+                                        }
+                                    },
+                                }
+                            ],
+                            series: [
+                                {
+                                    name: this.dataList.data[0].name,
+                                    type: 'line',
+                                    smooth: true,
+                                    data: this.dataList.data[0].data
+                                },
+                                {
+                                    name: this.dataList.data[1].name,
+                                    type: 'line',
+                                    smooth: true,
+                                    data: this.dataList.data[1].data
+                                },
+                                {
+                                    name: this.dataList.data[2].name,
+                                    type: 'line',
+                                    smooth: true,
+                                    data: this.dataList.data[2].data
+                                }
+                            ]
+                        };
+                        myChart.setOption(option)
+                    }
+                })
             }
         }
 	}

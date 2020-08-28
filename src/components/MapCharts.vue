@@ -93,5 +93,7 @@
     .map-charts {
         width: 100%;
         height: 65vh;
+        display: flex;
+        justify-content: center;
     }
 </style>
