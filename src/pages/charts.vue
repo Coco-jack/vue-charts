@@ -3,16 +3,8 @@
         <div class="title">数据监控</div>
         <div class="web-container">
             <div class="content-left">
-                <div class="garden-data">
-                    <div class="garden-data-title">
-                        <img class="right-route" src="../assets/images/right.png"/>
-                        <img class="right-route" src="../assets/images/right.png"/>
-                        <img class="right-route" src="../assets/images/right.png"/>
-                        <span>空中花园 (平均数据)</span>
-                    </div>
-                    <InfoBox/>
-                    <MonitorBox/>
-                </div>
+                <InfoBox/>
+                <MonitorBox/>
             </div>
             <div class="content-center">
                 <MapCharts/>
@@ -81,30 +73,9 @@
         width: 30%;
         height: 92vh;
         background: rgba(0,0,0,.3);
-    }
-
-    .garden-data {
-        color: #fff;
-        height: 46vh;
-    }
-
-    .garden-data-title {
-        padding: .1rem;
         display: flex;
-        box-sizing: border-box;
-    }
-
-    .right-route {
-        width: .2rem;
-        height: .2rem;
-        display: block;
-        margin-right: -.07rem;
-    }
-
-    .garden-data-title > span {
-        font-size: .14rem;
-        margin-left: .07rem;
-        line-height: .2rem;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .content-center {
@@ -119,6 +90,8 @@
         width: 30%;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        align-items: center;
         background: rgba(0,0,0,.3);
         overflow: hidden;
     }

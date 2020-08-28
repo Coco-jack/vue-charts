@@ -4,7 +4,7 @@
             <img class="right-route" src="../assets/images/right.png"/>
             <img class="right-route" src="../assets/images/right.png"/>
             <img class="right-route" src="../assets/images/right.png"/>
-            <span>温度曲线</span>
+            <span class="garden-data-title-content">温度曲线</span>
         </div>
         <div class="temperature-rotate" id="temperature-rotate"></div>
     </div>
@@ -82,6 +82,7 @@
                             ],
                             yAxis: [
                                 {
+                                    scale: true,
                                     type: 'value',
                                     axisLine: {
                                         lineStyle: {
@@ -120,15 +121,38 @@
 </script>
 
 <style scoped>
+    .garden-data {
+        width: 100%;
+        height: 46vh;
+    }
+
     .garden-data-title {
-        height: .2rem;
+        height: 4vh;
+        width: 100%;
         display: flex;
+        padding: 0 0 0 .2rem;
+        align-items: center;
+    }
+
+    .right-route {
+        width: .2rem;
+        height: .2rem;
+        display: block;
+        margin-right: -.07rem;
+    }
+
+    .garden-data-title-content {
+        font-size: .16rem;
+        margin-left: .07rem;
+        color: #ffffff;
     }
 
     .temperature-rotate {
         width: 100%;
-        height: 3rem;
-        margin-top: .4rem;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
 </style>

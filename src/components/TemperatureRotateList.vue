@@ -4,10 +4,10 @@
             <img class="right-route" src="../assets/images/right.png"/>
             <img class="right-route" src="../assets/images/right.png"/>
             <img class="right-route" src="../assets/images/right.png"/>
-            <span>监控温度曲线列表</span>
-            <span @click="showCoverList">查看全部</span>
+            <span class="garden-data-title-content">监控温度曲线列表</span>
+            <span class="check-all-btn" @click="showCoverList">查看全部</span>
         </div>
-        <div id="data-list" style="width: 100%; height: 300px; margin-top: 30px"></div>
+        <div id="data-list" class="temperature-rotate"></div>
     </div>
 </template>
 
@@ -59,6 +59,7 @@
                             yAxis: {
                                 type: 'value',
                                 name: '环境温度/°C',
+                                scale: true,
                                 nameTextStyle: {
                                     color: '#fff'
                                 },
@@ -99,29 +100,50 @@
 
 <style scoped>
     .garden-data {
-        color: #fff;
+        width: 100%;
         height: 46vh;
     }
 
     .garden-data-title {
-        height: .2rem;
-        padding: .1rem;
+        height: 4vh;
+        width: 100%;
         display: flex;
+        padding: 0 0 0 .2rem;
+        align-items: center;
     }
 
-    .garden-data-title > span {
-        font-size: .14rem;
+    .right-route {
+        width: .2rem;
+        height: .2rem;
+        display: block;
+        margin-right: -.07rem;
+    }
+
+    .garden-data-title-content {
+        font-size: .16rem;
+        margin-left: .07rem;
         color: #ffffff;
     }
 
-    .garden-data-title > span:nth-child(5) {
+    .check-all-btn {
+        width: 1.5rem;
+        height: 4vh;
+        font-size: .16rem;
+        color: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         margin-left: 1rem;
         cursor: pointer;
-        width: 1.5rem;
-        height: .3rem;
-        text-align: center;
-        line-height: .3rem;
         background: rgb(34, 158, 255);
         border-radius: 0.1rem;
+    }
+
+    .temperature-rotate {
+        width: 100%;
+        height: 40vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 </style>

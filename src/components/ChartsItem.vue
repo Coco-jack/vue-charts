@@ -54,6 +54,7 @@ export default {
                 yAxis: {
                     type: 'value',
                     name: data.danwei,
+                    offset: 7,
                     nameTextStyle: {
                         color: '#fff'
                     },

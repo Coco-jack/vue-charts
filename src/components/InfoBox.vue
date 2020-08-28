@@ -1,9 +1,17 @@
 <template>
-    <div class="garden-data-scroll" >
-        <div class='garden-data-detail' :class="{'animate-up':animateUp}">
-            <div v-for="item in titleDetail" class="garden-data-detail-content">
-                <span>{{item.name}}</span>
-                <span>{{item.data}}{{item.danwei}}</span>
+    <div class="container">
+        <div class="garden-data-title">
+            <img class="right-route" src="../assets/images/right.png"/>
+            <img class="right-route" src="../assets/images/right.png"/>
+            <img class="right-route" src="../assets/images/right.png"/>
+            <span class="garden-data-title-content">空中花园 (平均数据)</span>
+        </div>
+        <div>
+            <div class='garden-data-detail' :class="{'animate-up':animateUp}">
+                <div v-for="item in titleDetail" class="garden-data-detail-content">
+                    <span>{{item.name}}</span>
+                    <span>{{item.data}}{{item.danwei}}</span>
+                </div>
             </div>
         </div>
     </div>
@@ -26,7 +34,7 @@ export default {
         getData() {
             this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then( res => {
                 if (res && res.data.code === 200) {
-                    this.titleDetail = res.data.data
+                    this.titleDetail = res.data.data.slice(0, 6)
                 }
             })
         },
@@ -42,24 +50,45 @@ export default {
 }
 </script>
 
-<style scope>
-.garden-data-scroll {
-    height: 40vh;
-    overflow: hidden;
+<style scoped>
+.container {
     display: flex;
-    flex-wrap: wrap;
-    margin-bottom: .2rem;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 46vh;
+    overflow: hidden;
+}
+.garden-data-title {
+    display: flex;
+    height: 4vh;
+    width: 100%;
+    padding: 0 0 0 .2rem;
+    align-items: center;
+}
+.garden-data-title-content {
+    font-size: .16rem;
+    margin-left: .07rem;
+    color: #ffffff;
+}
+.right-route {
+    width: .2rem;
+    height: .2rem;
+    display: block;
+    margin-right: -.07rem;
 }
 .garden-data-detail {
     display: flex;
     flex-wrap: wrap;
-    height: 40vh;
+    height: 42vh;
     justify-content: space-around;
-    margin: .1rem 0;
 }
 .garden-data-detail-content {
     width: 1.5rem;
+    height: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     background-image: url("../assets/images/avgDiv.png");
     background-repeat: no-repeat;
     background-size: 100% 100%;
@@ -70,6 +99,7 @@ export default {
 }
 .garden-data-detail-content>span {
     display: block;
-    font-size: .14rem;
+    color: #ffffff;
+    font-size: .16rem;
 }
 </style>
