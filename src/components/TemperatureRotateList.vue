@@ -145,5 +145,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding: .4rem 0 0 0;
     }
 </style>

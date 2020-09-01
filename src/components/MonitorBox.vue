@@ -9,9 +9,9 @@
             </div>
             <div class="garden-bottom-content">
                 <div class="scroll-monitor">
-                    <img src="../assets/images/video.png"/>
-                    <img src="../assets/images/video.png"/>
-                    <img src="../assets/images/video.png"/>
+                    <img src="../assets/images/right01.png"/>
+                    <img src="../assets/images/right03.png"/>
+                    <img src="../assets/images/right02.png"/>
                 </div>
                 <div class="realTime-title">实时数据</div>
                 <div class="realTime-container">

@@ -34,7 +34,7 @@ export default {
         getData() {
             this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then( res => {
                 if (res && res.data.code === 200) {
-                    this.titleDetail = res.data.data.slice(0, 6)
+                    this.titleDetail = res.data.data.slice(0, 9)
                 }
             })
         },
@@ -82,6 +82,7 @@ export default {
     flex-wrap: wrap;
     height: 42vh;
     justify-content: space-around;
+    align-items: center;
 }
 .garden-data-detail-content {
     width: 1.5rem;
@@ -95,7 +96,7 @@ export default {
     padding: .1rem;
     border: 1px solid #00a0e9;
     text-align: center;
-    margin: .1rem 0;
+    margin: .2rem 0;
 }
 .garden-data-detail-content>span {
     display: block;
