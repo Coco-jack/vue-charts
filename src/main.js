@@ -15,23 +15,23 @@ Vue.config.productionTip = false
 
 // 尺寸适配
 const setHtmlFontSize = () => {
-  const htmlDom = document.getElementsByTagName('html')[0];
-  let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
-  // if (htmlWidth >= 1950) {
-  //   htmlWidth = 1950;
-  // }
-  if (htmlWidth <= 1950) {
-    htmlWidth = 1950;
-  }
-  htmlDom.style.fontSize = `${htmlWidth / 19.5}px`;
+    const htmlDom = document.getElementsByTagName('html')[0];
+    let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth;
+    // if (htmlWidth >= 1950) {
+    //   htmlWidth = 1950;
+    // }
+    if (htmlWidth <= 1950) {
+        htmlWidth = 1950;
+    }
+    htmlDom.style.fontSize = `${htmlWidth / 19.5}px`;
 };
 window.onresize = setHtmlFontSize;
 setHtmlFontSize();
 
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: {App},
+    template: '<App/>'
 })

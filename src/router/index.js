@@ -5,11 +5,11 @@ import Charts from '../pages/charts'
 Vue.use(Router)
 
 export default new Router({
-  routes: [
-    {
-      path: '/',
-      name: 'Charts',
-      component: Charts
-    }
-  ]
+    routes: [
+        {
+            path: '/',
+            name: 'Charts',
+            component: Charts
+        }
+    ]
 })
