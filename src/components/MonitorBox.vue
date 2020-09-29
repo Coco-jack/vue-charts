@@ -2,27 +2,27 @@
     <div class="container">
         <div class='content' :class="{'animate-up':animateUp}" v-for="item in realTimeDetail">
             <div class="garden-data-title">
-                <img class="right-route" src="../assets/images/right.png"/>
-                <img class="right-route" src="../assets/images/right.png"/>
-                <img class="right-route" src="../assets/images/right.png"/>
+                <img class="right-route" src="../assets/images/right.png" alt=""/>
+                <img class="right-route" src="../assets/images/right.png" alt=""/>
+                <img class="right-route" src="../assets/images/right.png" alt=""/>
                 <span class="garden-data-title-content">{{ item.name }}</span>
             </div>
             <div class="garden-bottom-content">
                 <div class="scroll-monitor">
-                    <img src="../assets/images/right01.png"/>
-                    <img src="../assets/images/right03.png"/>
-                    <img src="../assets/images/right02.png"/>
+                    <img src="../assets/images/right01.png" alt=""/>
+                    <img src="../assets/images/right03.png" alt=""/>
+                    <img src="../assets/images/right02.png" alt=""/>
                 </div>
                 <div class="realTime-title">实时数据</div>
                 <div class="realTime-container">
                     <div style="width: 100%" :class="{'animate-up':animateUp}">
                         <div class="scroll-monitor-content">
-                            <div class="realTime-data-detail" v-for="title in item.device.slice(0, 2)">
-                                <div class="temperature-title">{{title.name}}</div>
+                            <div class="realTime-data-detail" v-for="title in item.device">
+                                <div class="temperature-title">{{ title.name }}</div>
                                 <div class="temperature-detail">
                                     <div class="temperature" v-for="titleDetail in title.data">
-                                        <span>{{titleDetail.name}}</span>
-                                        <span>{{titleDetail.data}}</span>
+                                        <span>{{ titleDetail.name }}</span>
+                                        <span>{{ titleDetail.data }}</span>
                                     </div>
                                 </div>
                             </div>

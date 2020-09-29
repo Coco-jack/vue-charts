@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:id="id" v-bind:data="data" class="charts-item"></div>
+    <div v-bind:id="id" v-if="data.data.length" v-bind:data="data" class="charts-item"></div>
 </template>
 
 <script>
@@ -18,6 +18,7 @@ export default {
     },
     methods: {
         checkDataRef(id, data) {
+            console.log(data.data.length)
             let dom = this.$echarts.init(document.getElementById(id))
             let option = {
                 title: {
@@ -34,7 +35,7 @@ export default {
                     formatter: function (params) {
                         let result = '';
                         for (let i = 0; i < params.length; i++) {
-                            result += `${result.includes(params[i].name) ? '' : params[i].name}<br/>${params[i].seriesName}:${params[i].value.toFixed(2)}(°C)`
+                            result += `${result.includes(params[i].name) ? '' : params[i].name}<br/>${params[i].seriesName}:${params[i].value.toFixed(2)}`
                         }
                         return result
                     }
@@ -51,10 +52,14 @@ export default {
                     },
                     data: data.data[0].time
                 },
+                grid: {
+                    left: 45
+                },
                 yAxis: {
                     type: 'value',
-                    name: data.danwei,
-                    offset: 7,
+                    name: `${data.data[0].danwei}`,
+                    offset: 0,
+                    min: 1,
                     nameTextStyle: {
                         color: '#fff'
                     },
@@ -67,17 +72,17 @@ export default {
                 series: [
                     {
                         data: data.data[0].data,
-                        type: 'bar',
+                        type: `${data.data[0].time.length > 15 ? 'line' : 'bar'}`,
                         name: data.data[0].name
                     },
                     {
                         data: data.data[1].data,
-                        type: 'bar',
+                        type: `${data.data[1].time.length > 15 ? 'line' : 'bar'}`,
                         name: data.data[1].name
                     },
                     {
                         data: data.data[2].data,
-                        type: 'bar',
+                        type: `${data.data[1].time.length > 15 ? 'line' : 'bar'}`,
                         name: data.data[2].name
                     }
                 ]

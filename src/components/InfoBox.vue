@@ -1,16 +1,16 @@
 <template>
     <div class="container">
         <div class="garden-data-title">
-            <img class="right-route" src="../assets/images/right.png"/>
-            <img class="right-route" src="../assets/images/right.png"/>
-            <img class="right-route" src="../assets/images/right.png"/>
+            <img class="right-route" src="../assets/images/right.png" alt=""/>
+            <img class="right-route" src="../assets/images/right.png" alt=""/>
+            <img class="right-route" src="../assets/images/right.png" alt=""/>
             <span class="garden-data-title-content">空中花园 (平均数据)</span>
         </div>
         <div>
             <div class='garden-data-detail' :class="{'animate-up':animateUp}">
                 <div v-for="item in titleDetail" class="garden-data-detail-content">
-                    <span>{{item.name}}</span>
-                    <span>{{item.data}}{{item.danwei}}</span>
+                    <span>{{ item.name }}</span>
+                    <span>{{ item.data }}{{ item.danwei }}</span>
                 </div>
             </div>
         </div>
@@ -32,19 +32,19 @@ export default {
     },
     methods: {
         getData() {
-            this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then( res => {
+            this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then(res => {
                 if (res && res.data.code === 200) {
-                    this.titleDetail = res.data.data.slice(0, 9)
+                    this.titleDetail = res.data.data
                 }
             })
         },
         scrollAnimate() {
             this.animateUp = true;
-            setTimeout(()=>{
+            setTimeout(() => {
                 this.titleDetail.push(this.titleDetail[0]);
                 this.titleDetail.shift();
                 this.animateUp = false;
-            },500);
+            }, 500);
         },
     }
 }
@@ -59,6 +59,7 @@ export default {
     height: 46vh;
     overflow: hidden;
 }
+
 .garden-data-title {
     display: flex;
     height: 4vh;
@@ -66,17 +67,20 @@ export default {
     padding: 0 0 0 .2rem;
     align-items: center;
 }
+
 .garden-data-title-content {
     font-size: .16rem;
     margin-left: .07rem;
     color: #ffffff;
 }
+
 .right-route {
     width: .2rem;
     height: .2rem;
     display: block;
     margin-right: -.07rem;
 }
+
 .garden-data-detail {
     display: flex;
     flex-wrap: wrap;
@@ -84,6 +88,7 @@ export default {
     justify-content: space-around;
     align-items: center;
 }
+
 .garden-data-detail-content {
     width: 1.5rem;
     height: .5rem;
@@ -98,7 +103,8 @@ export default {
     text-align: center;
     margin: .2rem 0;
 }
-.garden-data-detail-content>span {
+
+.garden-data-detail-content > span {
     display: block;
     color: #ffffff;
     font-size: .16rem;
