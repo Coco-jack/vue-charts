@@ -45,16 +45,12 @@ export default {
     data() {
         return {
             userName: 'admin',
-            password: '12345678',
+            password: 'a12345678',
             projectName: '智慧大棚',
         }
     },
     methods: {
         login() {
-            let params = {
-                username: this.userName,
-                password: this.password
-            }
             if (!this.userName || !this.password || !this.projectName) {
                 this.$message({
                     showClose: true,
@@ -67,8 +63,16 @@ export default {
                     'u_id': this.userName,
                     'passwd': this.password,
                 }
-                ApiServers.login().then(res => {
-                    this.$router.push('/charts')
+                ApiServers.login(params).then(res => {
+                    if (res && res.code === 200) {
+                        this.$router.push('/charts')
+                    } else {
+                        this.$message({
+                            showClose: true,
+                            message: '用户名或密码不正确',
+                            type: 'error',
+                        })
+                    }
                 })
             }
         }

@@ -11,7 +11,7 @@ module.exports = {
         assetsPublicPath: '/',
         proxyTable: {
             '/proxy/': {
-                target: 'https://www.billdazy.com/',
+                target: 'https://www.billdazy.com',
                 pathRewrite: { '^/proxy/': '' },
                 secure: true,
                 changeOrigin: true,

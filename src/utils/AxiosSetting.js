@@ -1,5 +1,6 @@
 import axios from 'axios'
 import config from '../lib/config'
+import qs from 'qs'
 import { Message } from 'element-ui'
 
 const service = axios.create({
@@ -8,10 +9,10 @@ const service = axios.create({
 })
 
 service.interceptors.request.use(config => {
-    config.data = JSON.stringify(config.data)
-    config.headers = {
-        'Content-Type': 'application/x-www-form-urlencoded'
-    }
+    config.data = qs.stringify(config.data)
+    // config.headers = {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    // }
     return config
 }, error => {
     Promise.reject(error)
