@@ -18,6 +18,8 @@
 </template>
 
 <script>
+import ApiServers from '../lib/ApiServers'
+
 export default {
     name: 'InfoBox',
     data() {
@@ -32,7 +34,7 @@ export default {
     },
     methods: {
         getData() {
-            this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then(res => {
+            ApiServers.getShowTitleData().then(res => {
                 if (res && res.data.code === 200) {
                     this.titleDetail = res.data.data
                 }

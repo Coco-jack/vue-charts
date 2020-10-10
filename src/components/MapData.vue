@@ -12,6 +12,8 @@
 </template>
 
 <script>
+import ApiServers from '../lib/ApiServers'
+
 export default {
     name: "MapData",
     data() {
@@ -26,7 +28,7 @@ export default {
     },
     methods: {
         getMapInfo() {
-            this.$http.get('https://www.billdazy.com/190901/showtitlev4?project=P200320121679722').then(res => {
+            ApiServers.getShowTitleData().then(res => {
                 if (res && res.data.code === 200) {
                     this.realTimeList = res.data.data
                     for (let i = 0; i < this.realTimeList.length; i++) {

@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import ApiServers from '../lib/ApiServers'
+
 export default {
     name: 'MonitorBox',
     data() {
@@ -52,17 +54,24 @@ export default {
     },
     methods: {
         getMonitorList() {
-            this.$http.get('https://www.billdazy.com/190901/monitor?project=P200320121679722').then(res => {
+            ApiServers.getMonitorData().then(res => {
                 if (res && res.data.code === 200) {
                     this.monitorList = res.data.data.data
                 }
             })
         },
         getRealData() {
-            this.$http.get('https://www.billdazy.com/190901/floorv4?project=P200320121679722').then(res => {
+            ApiServers.getFloorData().then(res => {
                 if (res && res.data.code === 200) {
+                    let deviceData = []
                     this.realTimeList = res.data.data
-                    this.realTimeDetail = this.realTimeList[0].house
+                    this.realTimeList[0].house.map(item => {
+                        if (item.device) {
+                            let a = item.device.splice(2, 0)
+                            deviceData.push(item)
+                        }
+                    })
+                    this.realTimeDetail = deviceData
                 }
             })
         },
@@ -72,7 +81,7 @@ export default {
                 this.realTimeDetail.push(this.realTimeDetail[0]);
                 this.realTimeDetail.shift();
                 this.animateUp = false;
-            }, 500);
+            }, 3000);
         }
     }
 }
@@ -82,9 +91,6 @@ export default {
 .container {
     height: 46vh;
     overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
 }
 
 .content {

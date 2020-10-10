@@ -1,5 +1,5 @@
 <template>
-    <div v-bind:id="id" v-if="data.data.length" v-bind:data="data" class="charts-item"></div>
+    <div v-bind:id="id" v-show="data.data[0].time && isShowContainer" v-bind:data="data" class="charts-item"></div>
 </template>
 
 <script>
@@ -7,10 +7,15 @@ export default {
     name: "ChartsItem",
     props: ['id', 'data'],
     watch: {
-        data: {
-            listenData(newValue, oldValue) {
-                this.checkDataRef(this.id, newValue)
-            }
+        // data: {
+        //     listenData(newValue, oldValue) {
+        //         this.checkDataRef(this.id, newValue)
+        //     }
+        // }
+    },
+    data() {
+        return {
+            isShowContainer: false
         }
     },
     mounted() {
@@ -18,7 +23,9 @@ export default {
     },
     methods: {
         checkDataRef(id, data) {
-            console.log(data.data.length)
+            if (id && data) {
+                this.isShowContainer = true
+            }
             let dom = this.$echarts.init(document.getElementById(id))
             let option = {
                 title: {
@@ -28,6 +35,16 @@ export default {
                         color: '#fff',
                         fontSize: 14,
                         fontWeight: 0,
+                    }
+                },
+                legend: {
+                    left: 'center',
+                    top: 30,
+                    formatter: function (name) {
+                        return name
+                    },
+                    textStyle: {
+                        color: '#ffffff'
                     }
                 },
                 tooltip: {
@@ -53,11 +70,12 @@ export default {
                     data: data.data[0].time
                 },
                 grid: {
-                    left: 45
+                    left: '15%',
+                    top: 90
                 },
                 yAxis: {
                     type: 'value',
-                    name: `${data.data[0].danwei}`,
+                    name: `单位(${data.data[0].danwei})`,
                     offset: 0,
                     min: 1,
                     nameTextStyle: {
@@ -95,7 +113,7 @@ export default {
 
 <style scoped>
 .charts-item {
-    width: 300px;
-    height: 250px;
+    width: 450px;
+    height: 350px;
 }
 </style>

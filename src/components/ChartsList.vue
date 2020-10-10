@@ -13,7 +13,9 @@
 </template>
 
 <script>
-import ChartsItem from "./ChartsItem"
+import ApiServers from '../lib/ApiServers'
+import ChartsItem from './ChartsItem'
+
 export default {
     name: "ChartsList",
     data() {
@@ -30,7 +32,7 @@ export default {
     },
     methods: {
         getChartData() {
-            this.$http.get('https://www.billdazy.com/190901/infov4?project=P200320121679722').then(res => {
+            ApiServers.getChartsListData().then(res => {
                 if (res && res.data.code === 200) {
                     this.dataList = res.data.data
                     for (let i = 0; i < this.dataList.length; i++) {
@@ -49,9 +51,9 @@ export default {
 
 <style scoped>
 .cover-title {
+    height: 10vh;
     color: #ffffff;
     font-size: .4rem;
-    margin-top: .8rem;
     font-weight: 600;
     display: flex;
     justify-content: center;
@@ -59,11 +61,13 @@ export default {
 }
 
 .charts-box {
-    margin-top: .3rem;
+    height: 90vh;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding-left: .6rem;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .el-button {
@@ -74,5 +78,24 @@ export default {
 .charts-detail {
     height: 2rem;
     width: 2.5rem;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.5);
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+    background: rgba(255, 0, 0, 0.4);
 }
 </style>

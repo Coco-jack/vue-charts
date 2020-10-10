@@ -18,8 +18,8 @@ export default {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
-    background: url('./assets/images/background.png')
+    background: url("./assets/images/background.png") no-repeat;
+    background-size: 100% 100%;
 }
 
 * {
@@ -29,5 +29,9 @@ export default {
 
 html {
     font-size: 100px;
+}
+
+.el-message__icon {
+    font-size: .24rem;
 }
 </style>

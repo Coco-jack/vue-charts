@@ -1,9 +1,9 @@
 <template>
     <div class="garden-data">
         <div class="garden-data-title">
-            <img class="right-route" src="../assets/images/right.png"/>
-            <img class="right-route" src="../assets/images/right.png"/>
-            <img class="right-route" src="../assets/images/right.png"/>
+            <img class="right-route" src="../assets/images/right.png" alt=""/>
+            <img class="right-route" src="../assets/images/right.png" alt=""/>
+            <img class="right-route" src="../assets/images/right.png" alt=""/>
             <span class="garden-data-title-content">温度曲线</span>
         </div>
         <div class="temperature-rotate" id="temperature-rotate"></div>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import ApiServers from '../lib/ApiServers'
 export default {
     name: "TemperatureRotate",
     data() {
@@ -23,7 +24,7 @@ export default {
     },
     methods: {
         getTemperatureRotateData() {
-            this.$http.get('https://www.billdazy.com/190901/info?project=P200320121679722&value=2&u_id=admin').then(res => {
+            ApiServers.getInfoData().then(res => {
                 if (res && res.data.code === 200) {
                     this.dataList = res.data.data
                     let color = ['#5793f3', '#d14a61', '#675bba']
@@ -49,7 +50,6 @@ export default {
                         color: color,
                         tooltip: {
                             trigger: 'axis',
-                            // formatter: `{b}<br/>{a0}:{c0}(°C)<br/>{a1}:{c1}}(°C)<br/>{a2}:{c2}(°C)`
                             formatter: function (params) {
                                 let result = '';
                                 for (let i = 0; i < params.length; i++) {
@@ -83,6 +83,7 @@ export default {
                         yAxis: [
                             {
                                 scale: true,
+                                name: '环境温度/°C',
                                 type: 'value',
                                 axisLine: {
                                     lineStyle: {

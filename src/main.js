@@ -9,7 +9,7 @@ import echarts from 'echarts'
 import 'element-ui/lib/theme-chalk/index.css'
 
 Vue.use(Element)
-Vue.prototype.$http = axios
+Vue.prototype.$axios = axios
 Vue.prototype.$echarts = echarts
 Vue.config.productionTip = false
 
@@ -28,7 +28,6 @@ const setHtmlFontSize = () => {
 window.onresize = setHtmlFontSize;
 setHtmlFontSize();
 
-/* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
